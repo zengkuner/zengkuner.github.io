@@ -21,15 +21,6 @@
     <title>test-hexo</title>
     <url>/2021/08/01/test-hexo/</url>
     <content><![CDATA[]]></content>
-      <categories>
-        <category>分类1</category>
-        <category>分类2</category>
-      </categories>
-      <tags>
-        <tag>标签1</tag>
-        <tag>标签2</tag>
-        <tag>标签3</tag>
-      </tags>
   </entry>
   <entry>
     <title>react父子组件通信</title>
@@ -77,6 +68,10 @@
       <categories>
         <category>react</category>
       </categories>
+      <tags>
+        <tag>react</tag>
+        <tag>组件通信</tag>
+      </tags>
   </entry>
   <entry>
     <title>函数和类型推断</title>
@@ -115,6 +110,123 @@
       </categories>
       <tags>
         <tag>typescript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue父子组件通信</title>
+    <url>/2021/09/06/vue/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</url>
+    <content><![CDATA[<h3 id="祖先传子通信方式"><a href="#祖先传子通信方式" class="headerlink" title="祖先传子通信方式"></a>祖先传子通信方式</h3><ol>
+<li>父组件 APP.vue<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">todo-header</span> <span class="attr">ref</span>=<span class="string">&quot;header&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//在mounted生命周期里执行异步代码</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//给&lt;TodoHeader/&gt;绑定addTodo事件监听</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//this.$on(&#x27;addTodo&#x27;,this.addTodo) 此时第一个this指向APP实例，所以不对</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.$refs.header.$on(<span class="string">&quot;addTodo&quot;</span>, <span class="built_in">this</span>.addTodo); <span class="comment">//括号内为事件名和回调函数</span></span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>子组件 TodoHeader.vue 接收<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">addItem</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//触发自定义事件：addTodo</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;addTodo&quot;</span>, todo);</span></span><br><span class="line"><span class="javascript">      &#125;,</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="消息订阅与发布-—适用于各种组件间传值，以父子组件传值为例"><a href="#消息订阅与发布-—适用于各种组件间传值，以父子组件传值为例" class="headerlink" title="消息订阅与发布 —适用于各种组件间传值，以父子组件传值为例"></a>消息订阅与发布 —适用于各种组件间传值，以父子组件传值为例</h3><ol>
+<li>下载 pubsub.js 库<ul>
+<li>npm install —save-js 查看信息：npm info pubsub-js</li>
+</ul>
+</li>
+<li>父组件 App.vue 订阅消息—绑定事件监听<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> PubSub <span class="keyword">from</span> <span class="string">&quot;pubsub-js&quot;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//订阅消息 参数为消息名和回调函数</span></span></span><br><span class="line"><span class="javascript">      PubSub.subscribe(<span class="string">&quot;deleteTodo&quot;</span>, <span class="function">(<span class="params">msg, index</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.deleteTodo(index);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>子组件 TodoItem.vue 发布消息==触发事件<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">	<span class="keyword">import</span> PubSub <span class="keyword">from</span> <span class="string">&#x27;pubsub=js&#x27;</span></span></span><br><span class="line"><span class="javascript">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">		<span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="title">deleteItem</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">const</span> &#123;todo, index, deleteTodo&#125; = <span class="built_in">this</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(<span class="built_in">window</span>.confirm(<span class="string">`确认删除<span class="subst">$&#123;todo.title&#125;</span>吗？`</span>)) &#123;</span></span><br><span class="line"><span class="javascript">					<span class="comment">//发布消息 参数为消息名和要传递的数据</span></span></span><br><span class="line"><span class="javascript">					PubSub.publish(<span class="string">&#x27;deleteTodo&#x27;</span>, index);</span></span><br><span class="line"><span class="javascript">				&#125;</span></span><br><span class="line"><span class="javascript">			&#125;</span></span><br><span class="line"><span class="javascript">		&#125;</span></span><br><span class="line"><span class="javascript">	&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="子传父的通信方式-emit"><a href="#子传父的通信方式-emit" class="headerlink" title="子传父的通信方式 $emit"></a>子传父的通信方式 $emit</h3><ol>
+<li>这里以子组件直接给父组件传递自己 data 里的数据为例。</li>
+<li>父组件 子组件标签名为 son-comp<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--通过事件绑定把这个方法传递给子组件--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">son-comp</span> @<span class="attr">func</span>=<span class="string">&quot;getMsgFromSon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">son-comp</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  	<span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">  		SonComp,</span></span><br><span class="line"><span class="javascript">  	&#125;,</span></span><br><span class="line"><span class="javascript">  	<span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">  		<span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">  			<span class="attr">msgFromSon</span>: <span class="string">&#x27;&#x27;</span></span></span><br><span class="line"><span class="javascript">  		&#125;</span></span><br><span class="line"><span class="javascript">  	&#125;</span></span><br><span class="line"><span class="javascript">  	<span class="comment">/**定义一个接受子组件数据的方法，先把这个方法传给子组件，当子组件调用这个方法时，</span></span></span><br><span class="line"><span class="comment"><span class="javascript">  	 * 就可以通过参数data传递他自己想传给父组件的数据</span></span></span><br><span class="line"><span class="comment"><span class="javascript">  	 */</span></span></span><br><span class="line"><span class="javascript">  	<span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">  		<span class="function"><span class="title">getMsgFromSon</span>(<span class="params">data</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">  			<span class="built_in">this</span>.msgFromSon = data;</span></span><br><span class="line"><span class="javascript">  		&#125;</span></span><br><span class="line"><span class="javascript">  	&#125;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>子组件 SonComp.vue<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;向父组件传递消息&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;sendMsg&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">msg</span>: <span class="string">&quot;要传递给父组件的数据&quot;</span>,</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">sendMsg</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;func&quot;</span>, <span class="built_in">this</span>.msg);</span></span><br><span class="line"><span class="javascript">      &#125;,</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>组件通信</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>react+typescript 高仿ant design 开发UI组件库</title>
+    <url>/2021/09/16/react/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E7%9B%B8%E5%85%B3/</url>
+    <content><![CDATA[<h2 id="react-typescript-高仿ant-design-开发UI组件库"><a href="#react-typescript-高仿ant-design-开发UI组件库" class="headerlink" title="react+typescript 高仿ant design 开发UI组件库"></a>react+typescript 高仿ant design 开发UI组件库</h2><hr>
+<h3 id="安装sass"><a href="#安装sass" class="headerlink" title="安装sass"></a>安装sass</h3><ol>
+<li>Sass 是一款强化 CSS 的辅助工具，是一种css的预编译语言，它在 CSS 语法的基础上增加了变量 (variables)、嵌套 (nested rules)、混合 (mixins)、导入 (inline imports) 等高级功能。Sass 能够帮助复杂的样式表更有条理， 并且易于在项目内部或跨项目共享设计。</li>
+<li>通过<code>npm install -g sass</code>安装到项目里，编译运行的时候会报错：<code>Cannot find module &#39;sass&#39;</code>。</li>
+<li>解决办法：使用dart-sass。</li>
+<li>安装命令：<code>npm install node-sass@npm:dart-sass</code></li>
+<li>全局的一些变量、依赖、可重用性、扩展性。</li>
+<li>varibles.scss(各种变量以及可配置设置) mixins.scss(全局mixins) function.scss(全局 functions)。</li>
+<li>creat-react-app天生不支持sass预处理器的，需要安装依赖：<code>npm install node-sass --save</code>。</li>
+<li>变量使用$ ：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$blue: #0d6efd !default;</span><br><span class="line">$primary: $blue !default;</span><br></pre></td></tr></table></figure></li>
+<li>在添加样式到应用中，在不同浏览器下，有些元素缺少一致性，比如margin、padding等属性的默认值不太统一。</li>
+<li>解决方法：安装normalize.css，其作用就是一般化大部分浏览器的默认样式。</li>
+<li>插入文件：@import命令插入外部文件 .scss和css都可。</li>
+<li>刚刚启动项目时又遇到了一个问题，babel-loader版本不匹配：create-react-app创建项目的时候所用到的babel-loader依赖是8.1.0版本的，但是在我所创建项目的node-modules下的版本是8.2.2的版本，所以我要把版本降级才可以启动项目。</li>
+<li>解决方案：直接安装babel-loader的8.1.0版本，安装命令：<code>npm install babel-loader@8.1.0</code>.</li>
+</ol>
+<hr>
+<h3 id="button组件需求分析"><a href="#button组件需求分析" class="headerlink" title="button组件需求分析"></a>button组件需求分析</h3><ol>
+<li>type：不同类型的button，比如primary、default、danger、link button(链接按钮)</li>
+<li>size：不同的尺寸的button，比如normal、small、large</li>
+<li>禁用状态：disabled</li>
+<li>如何支持按钮的原生api，比如链接的href属性，children(按钮文字)等。</li>
+<li>给btn添加不同的className，假如是默认的就是btn，给不同的type和size添加不同的className，手动拼接很多的className会很麻烦，这里采用一个非常流行的小工具：classnames。</li>
+<li>安装命令：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install classnames --save</span><br><span class="line">npm install @types/classnames --save</span><br></pre></td></tr></table></figure></li>
+<li>button不同的size就是padding、border、radius不一样，实质上就是修改这几个属性而已，此时代码重用就可以用上sass的mixin，</li>
+<li>sass的内置函数，比如：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">link-color: $primary !default;</span><br><span class="line">$link-hover-color: darken($link-color, 15%) !default // 基于$link-color变暗15%</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h3 id="测试工具-testing-library"><a href="#测试工具-testing-library" class="headerlink" title="测试工具 testing-library"></a>测试工具 testing-library</h3><ol>
+<li>安装：<code>npm install --save-dev @testing-library/react</code>.</li>
+<li>运行命令：<code>npm run test</code>.</li>
+<li>安装jest-dom工具：<code>npm install --save-dev @test-library/jest-dom</code>.(最新版本会自带，不用安装)</li>
+</ol>
+<hr>
+<h3 id="menu组件"><a href="#menu组件" class="headerlink" title="menu组件"></a>menu组件</h3><ol>
+<li>React.Children提供了用于处理this.props.children不透明数据结构的实用方法，如果Children为不合规则的数据类型，map会完美的跳过这些类型，避免出现错误。</li>
+<li>displayName为react内置属性</li>
+<li>cloneElement()</li>
+</ol>
+<h4 id="父组件使用useContext向子组件传递数据-常用于【祖组件】与【后代组件】间通信"><a href="#父组件使用useContext向子组件传递数据-常用于【祖组件】与【后代组件】间通信" class="headerlink" title="父组件使用useContext向子组件传递数据-常用于【祖组件】与【后代组件】间通信"></a>父组件使用useContext向子组件传递数据-常用于【祖组件】与【后代组件】间通信</h4><ol>
+<li>父组件中 <code>menu.tsx</code><ul>
+<li>引入<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>声明要传递参数的类型<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ts字符串字面量</span></span><br><span class="line"><span class="keyword">type</span> selectCallback = <span class="function">(<span class="params">selectedIndex: <span class="built_in">number</span></span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line"><span class="keyword">interface</span> IMenuContext &#123;</span><br><span class="line">  <span class="attr">passedIndex</span>: <span class="built_in">number</span>;</span><br><span class="line">  passedOnSelect?: selectCallback;</span><br><span class="line">  mode?: MenuMode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>给要传过去的参数赋值(放在一个对象里面)<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 要传给子组件的数据</span></span><br><span class="line"><span class="keyword">const</span> passedContext: IMenuContext = &#123;</span><br><span class="line">  <span class="attr">passedIndex</span>: currentActive ? currentActive : <span class="number">0</span>,</span><br><span class="line">  <span class="attr">passedOnSelect</span>: handleClick,</span><br><span class="line">  <span class="attr">mode</span>: mode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用<code>MenuContext.Provider</code>传值<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> (</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">className</span>=<span class="string">&#123;classes&#125;</span> <span class="attr">style</span>=<span class="string">&#123;style&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">MenuContext.Provider</span> <span class="attr">value</span>=<span class="string">&#123;passedContext&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      &#123;renderChildren()&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">MenuContext.Provider</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>导出<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> MenuContext = createContext&lt;IMenuContext&gt;(&#123;<span class="attr">passedIndex</span>: <span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>子组件中 <code>menuItem.tsx</code><ul>
+<li>引入<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; createContext, useContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; MenuContext &#125; <span class="keyword">from</span> <span class="string">&#x27;./menu&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>利用<code>useContext</code>取出并存入一个变量中<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> context = useContext(MenuContext)</span><br></pre></td></tr></table></figure></li>
+<li>使用时用点号即可<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line">context.passedIndex</span><br><span class="line">context.passedOnSelect(index)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="图标Icon"><a href="#图标Icon" class="headerlink" title="图标Icon"></a>图标Icon</h3><ol>
+<li>安装react-fontawesome：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i --save @fortawesome/fontawesome-svg-core</span><br><span class="line">npm i --save @fortawesome/free-solid-svg-icons</span><br><span class="line">npm i --save @fortawesome/react-fontawesome</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h3 id="storybook-本地调试组件和生成文档页面的利器"><a href="#storybook-本地调试组件和生成文档页面的利器" class="headerlink" title="storybook-本地调试组件和生成文档页面的利器"></a>storybook-本地调试组件和生成文档页面的利器</h3><ol>
+<li>目前开发组件库痛点：展示和调试功能使用的是create-react-app入口文件(App.tsx)不适合管理组件库，并且缺少行为追踪和属性调试功能。</li>
+<li>组件完美开发工具应有的特点：<ul>
+<li>分开展示各个组件不同属性下的状态。</li>
+<li>能追踪组件的行为并且具有属性调试功能。</li>
+<li>可以为组件自动生成文档和属性列表。</li>
+</ul>
+</li>
+<li>安装：<br><code>npx -p @storybook/cli sb init</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>react</category>
+      </categories>
+      <tags>
+        <tag>react</tag>
+        <tag>sass</tag>
       </tags>
   </entry>
 </search>
