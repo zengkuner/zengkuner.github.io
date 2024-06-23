@@ -192,6 +192,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/regExp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zengkuner">
+      <meta itemprop="description" content="咸鱼翻身">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zengkuner">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/28/regExp/" class="post-title-link" itemprop="url">常用正则表达式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-28 22:50:50" itemprop="dateCreated datePublished" datetime="2024-05-28T22:50:50+08:00">2024-05-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-23 22:06:39" itemprop="dateModified" datetime="2024-06-23T22:06:39+08:00">2024-06-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="匹配手机号码"><a href="#匹配手机号码" class="headerlink" title="匹配手机号码"></a>匹配手机号码</h4><p><code>^</code>表示以某字符打头，<code>^1</code>表示以1开头，用中括号<code>[]</code>限制使用哪些字符，只匹配一个数字，<code>\d</code>表示所有数字，可能会包含一些额外的数字字符，<code>&#123;9&#125;</code>表示重复的次数，这里是重复9次，最后用<code>$</code>收尾，此处指以9个数字收尾，<code>g</code>表示全局模式，也就是查找字符串的全部内容。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 手机号一共11位，以1开头，第二位可能是3、4、5、6、7、8、9，后9位都可以是0-9的数字</span></span><br><span class="line">/^<span class="number">1</span>[<span class="number">3456789</span>]\d&#123;<span class="number">9</span>&#125;$/g</span><br></pre></td></tr></table></figure></p>
+<h4 id="匹配QQ号码"><a href="#匹配QQ号码" class="headerlink" title="匹配QQ号码"></a>匹配QQ号码</h4><p><code>[1-9]</code>中括号里面数字之间的横杠可表示数字范围，这里表示1到9之间的任一数字，大括号<code>&#123;&#125;</code>里面可以设置字符出现次数的范围，<code>&#123;4,9&#125;</code> 表示可以重复4到9次。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// QQ号一共5到10位数，不能以0开头，只能是1-9，后面的可以是任意数</span></span><br><span class="line">/^[<span class="number">1</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>,<span class="number">9</span>&#125;$/g</span><br></pre></td></tr></table></figure></p>
+<h4 id="匹配十六进制数"><a href="#匹配十六进制数" class="headerlink" title="匹配十六进制数"></a>匹配十六进制数</h4><p><code>|</code>表示或者，<code>()</code>表示分组，<code>?</code>仅作用于它前一个字符，表示可有可无。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 十六进制数以#开头，后面是6个字符，这6个字符可以是0到9，a到f, A到F，</span></span><br><span class="line"><span class="comment"> * 多个范围都可以一起写在中括号里面，且不需要空格，非常方便，</span></span><br><span class="line"><span class="comment"> * 十六进制数可以进行缩写，在每两位颜色值重复时就可以缩写成一位</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">/#?([<span class="number">0</span>-9a-fA-F]&#123;<span class="number">6</span>&#125;|[<span class="number">0</span>-9a-fA-F]&#123;<span class="number">3</span>&#125;)$/g</span><br></pre></td></tr></table></figure></p>
+<h4 id="匹配邮箱"><a href="#匹配邮箱" class="headerlink" title="匹配邮箱"></a>匹配邮箱</h4><p>中横线<code>-</code>在正则表达式里面用于范围，要用于字符匹配时需要转义<code>\-</code>，英语句号<code>.</code>在正则里面表示所有单个字符，除了换行符，故也需要转义<code>\.</code>，<code>+</code>表示一个字符到无限个字符的范围，即至少一个。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 邮箱包含所有大小写字母，所有数字，以及 _ - . 三个字符</span></span><br><span class="line">/^([<span class="number">0</span>-9a-zA-Z_\-\.]+)@([A-Za-z0-9_\-\.]+)\.([A-Za-z]&#123;<span class="number">2</span>,<span class="number">6</span>&#125;)$/</span><br></pre></td></tr></table></figure></p>
+<h4 id="匹配url网址"><a href="#匹配url网址" class="headerlink" title="匹配url网址"></a>匹配url网址</h4><p><code>\w</code>匹配一个单字字符（字母、数字或者下划线），等价于 [A-Za-z0-9_]。<code>*</code>匹配前一个表达式 0 次或多次，等价于 {0,}。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * http://www.baidu.com：协议、域名、端口号，http可能加s，也可以不加s，协议名称也可以不写。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">/^((https?|ftp|file):\/\/)?([\da-z\.\-]+)\.([a-z\.]&#123;<span class="number">2</span>,<span class="number">6</span>&#125;)([\/\w\.\-]*)*\/?$/g</span><br></pre></td></tr></table></figure></p>
+<h4 id="匹配HTML标签"><a href="#匹配HTML标签" class="headerlink" title="匹配HTML标签"></a>匹配HTML标签</h4><p>最后加一个<code>m</code>来表示匹配多行，<code>^</code>表示排除后面跟着的字符，<code>(.*)</code>表示0个到多个的任意字符，<code>\数字</code>表示引用前面括号包裹起来的某组，<code>\s</code>匹配一个空白字符<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;div class=&quot;dandan&quot;&gt;danlaoshi&lt;/div&gt;</span></span><br><span class="line"><span class="comment"> * &lt;div&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="comment"> * &lt;img /&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">/^&lt;([a-z]+)([^&gt;]+)*(&gt;(.*)&lt;\/\<span class="number">1</span>&gt;|\s+\/&gt;)$/gm</span><br></pre></td></tr></table></figure></p>
+<h4 id="匹配IP地址（IPv4）"><a href="#匹配IP地址（IPv4）" class="headerlink" title="匹配IP地址（IPv4）"></a>匹配IP地址（IPv4）</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 地址是由4组从0到255的数字组成，正则没有直接表示数字的范围的代码，</span></span><br><span class="line"><span class="comment"> * 于是分为0-199，200-249，250-255三种范围</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">/^(([<span class="number">01</span>]?[<span class="number">0</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]?|<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>][<span class="number">0</span>-<span class="number">9</span>]|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>])\.)&#123;<span class="number">3</span>&#125;([<span class="number">01</span>]?[<span class="number">0</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]?|<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>][<span class="number">0</span>-<span class="number">9</span>]|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>])$/g</span><br></pre></td></tr></table></figure>
+<h4 id="匹配日期"><a href="#匹配日期" class="headerlink" title="匹配日期"></a>匹配日期</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以2024-06-23这种格式为例</span></span><br><span class="line">/^[<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>&#125;-(<span class="number">0</span>[<span class="number">1</span>-<span class="number">9</span>]|<span class="number">1</span>[<span class="number">0</span>-<span class="number">2</span>])-(<span class="number">0</span>[<span class="number">1</span>-<span class="number">9</span>]|[<span class="number">12</span>][<span class="number">0</span>-<span class="number">9</span>]|<span class="number">3</span>[<span class="number">01</span>])$/g</span><br></pre></td></tr></table></figure>
+<h4 id="匹配身份证"><a href="#匹配身份证" class="headerlink" title="匹配身份证"></a>匹配身份证</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 18位数字，第一个数字不能是0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">/^[<span class="number">1</span>-<span class="number">9</span>][<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">5</span>&#125;(<span class="number">18</span>|<span class="number">19</span>|([<span class="number">23</span>][<span class="number">0</span>-<span class="number">9</span>]))[<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">2</span>&#125;(<span class="number">0</span>[<span class="number">1</span>-<span class="number">9</span>]|<span class="number">1</span>[<span class="number">0</span>-<span class="number">2</span>])(<span class="number">0</span>[<span class="number">1</span>-<span class="number">9</span>]|[<span class="number">12</span>][<span class="number">0</span>-<span class="number">9</span>]|<span class="number">3</span>[<span class="number">01</span>])[<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">3</span>&#125;[<span class="number">0</span>-9Xx]$/g</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/09/class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -985,118 +1067,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/01/react/react%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zengkuner">
-      <meta itemprop="description" content="咸鱼翻身">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zengkuner">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/01/react/react%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">react父子组件通信</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-01 17:52:30" itemprop="dateCreated datePublished" datetime="2021-09-01T17:52:30+08:00">2021-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-06 14:13:51" itemprop="dateModified" datetime="2021-09-06T14:13:51+08:00">2021-09-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="react父子组件通信方式"><a href="#react父子组件通信方式" class="headerlink" title="react父子组件通信方式"></a>react父子组件通信方式</h2><h3 id="子组件向父组件传参"><a href="#子组件向父组件传参" class="headerlink" title="子组件向父组件传参"></a>子组件向父组件传参</h3><h4 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h4><ol>
-<li>业务场景：父页面进行多选课程，并能选择分类，不同分类下展示相应的可选课程，点击请选择分类跳转至子页面进行分类级联选择。</li>
-<li>交互功能：<ul>
-<li>当子页面选择好想选的分类时，点击确定按钮将这个分类的唯一id及分类名称传递给父页面。另外，父页面收到分类id时需要将这个id作为请求接口函数的参数触发请求。</li>
-<li>级联分类选择需要保存历史选择记录，例如假设一共有三层，选到第二层时，返回到父页面，此时再跳转到子页面时还要显示之前选择过的状态。</li>
-<li>综上：子页面中，点击头部导航栏的返回按钮向父页面传递保留选择历史的level（树形结构的子集）；当点击确定按钮时，向父页面传递最后选中的分类名称和分类id，以及level（点击确定按钮后也会跳转到父页面，故也要把level传过去）。</li>
-</ul>
-</li>
-<li>解决方案：<br> <strong>父页面中</strong><ul>
-<li>假设父页面为AddMicrolecture.tsx，子页面为courseClassify.tsx，父页面的子组件标签为<code>&lt;CourseClassify/&gt;</code>。</li>
-<li>首先在父页面定义两个函数，其中一个如下，第二个函数直接定义在子组件标签中。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接受两个参数，第一个参数data表示要接受的分类id，</span></span><br><span class="line"><span class="comment">// 第二个参数表示保存的历史选择数据，这两个参数都需要子组件传递过来.</span></span><br><span class="line"><span class="keyword">const</span> callBackFun = <span class="function">(<span class="params">data: <span class="built_in">any</span>, level: <span class="built_in">any</span>[]</span>) =&gt;</span> &#123;</span><br><span class="line">  setShowClassify(<span class="literal">false</span>); <span class="comment">// 子组件调用这个函数时跳转到父页面，设置为false</span></span><br><span class="line">  getData(<span class="string">&#x27;&#x27;</span>, <span class="literal">true</span>, <span class="number">1</span>, data);</span><br><span class="line">  setCategory(level) <span class="comment">// 保存这个level，再传给子组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>把这个两个函数传递给子组件，由子组件调用执行。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;CourseClassify</span><br><span class="line">  <span class="comment">// 参数data表示分类名称，需要子组件调用这个函数然后将参数传递过来</span></span><br><span class="line">  categoryName=&#123;<span class="function">(<span class="params">data: <span class="built_in">string</span></span>) =&gt;</span> &#123; setCategoryName(data); &#125;&#125;</span><br><span class="line">  callBackFun=&#123;<span class="function">(<span class="params">data?: <span class="built_in">string</span>, level?: <span class="built_in">any</span>[]</span>) =&gt;</span> callBackFun(data, level)&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
-<strong>子页面中</strong></li>
-<li>子组件中声明函数类型：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IProps &#123;</span><br><span class="line">  <span class="attr">categoryName</span>: <span class="function">(<span class="params">data: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line">  <span class="attr">callBackFun</span>: <span class="function">(<span class="params">data?: <span class="built_in">string</span>, level?: <span class="built_in">any</span>[]</span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>点击确定按钮调用confirm方法，在这个方法中调用父组件中传过来的两个函数。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> confirm = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (isConfirm) &#123;</span><br><span class="line">    <span class="keyword">const</span> categoryId = level[level.length - <span class="number">1</span>].id;</span><br><span class="line">    <span class="keyword">const</span> categoryName = level[level.length - <span class="number">1</span>].name;</span><br><span class="line">    <span class="comment">// 调用父组件传过来的函数，并执行</span></span><br><span class="line">    props.categoryName(categoryName);</span><br><span class="line">    props.callBackFun(categoryId, level);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>点击导航栏返回按钮，只要把level传过去并执行父组件的callBackFun函数。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Navbar title=<span class="string">&quot;请选择课程分类&quot;</span> onLeftClick=&#123;<span class="function">() =&gt;</span> props.callBackFun(<span class="string">&#x27;&#x27;</span>,level)&#125;&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="父组件向子组件传参"><a href="#父组件向子组件传参" class="headerlink" title="父组件向子组件传参"></a>父组件向子组件传参</h3><h4 id="场景一：传递简单数据。"><a href="#场景一：传递简单数据。" class="headerlink" title="场景一：传递简单数据。"></a>场景一：传递简单数据。</h4><ol>
-<li>父页面中：把category传过去<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;CourseClassify</span><br><span class="line">  category=&#123;category&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></li>
-<li>子页面中接收：<ul>
-<li>首先在子组件中声明数据类型。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IProps &#123;</span><br><span class="line">  <span class="attr">category</span>: <span class="built_in">any</span>[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>然后通过<code>props.category</code>使用。</li>
-</ul>
-</li>
-</ol>
-<h4 id="场景二：传递函数。"><a href="#场景二：传递函数。" class="headerlink" title="场景二：传递函数。"></a>场景二：传递函数。</h4><ol>
-<li>业务说明：子页面进行添加或删除操作后，父组件要展示一条有修改信息的提醒。</li>
-<li>解决方案：只需要在子组件的确认删除处和确认添加处做好标记，然后把标记传递给父组件。</li>
-<li>父页面index.tsx，子组件标签为<code>&lt;MaterialList/&gt;</code><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [isDeleteIfo, setIsDeleteInfo] = useState(<span class="literal">false</span>) <span class="comment">// 为true时，即表示信息被修改。</span></span><br><span class="line"></span><br><span class="line">&lt;MaterialList</span><br><span class="line">  bookIsChange=&#123;<span class="function">() =&gt;</span> &#123; setIsDeleteInfo(<span class="literal">true</span>) &#125;&#125;</span><br><span class="line">  /&gt;</span><br></pre></td></tr></table></figure></li>
-<li>子组件中：<ul>
-<li>声明：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IProps &#123;</span><br><span class="line">  <span class="attr">bookIsChange</span>: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>确认删除：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">delete</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  props.bookIsChange();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1168,7 +1138,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1181,7 +1151,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

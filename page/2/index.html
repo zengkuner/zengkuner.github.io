@@ -192,6 +192,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/01/react/react%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zengkuner">
+      <meta itemprop="description" content="咸鱼翻身">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zengkuner">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/01/react/react%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">react父子组件通信</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-01 17:52:30" itemprop="dateCreated datePublished" datetime="2021-09-01T17:52:30+08:00">2021-09-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-06 14:13:51" itemprop="dateModified" datetime="2021-09-06T14:13:51+08:00">2021-09-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="react父子组件通信方式"><a href="#react父子组件通信方式" class="headerlink" title="react父子组件通信方式"></a>react父子组件通信方式</h2><h3 id="子组件向父组件传参"><a href="#子组件向父组件传参" class="headerlink" title="子组件向父组件传参"></a>子组件向父组件传参</h3><h4 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h4><ol>
+<li>业务场景：父页面进行多选课程，并能选择分类，不同分类下展示相应的可选课程，点击请选择分类跳转至子页面进行分类级联选择。</li>
+<li>交互功能：<ul>
+<li>当子页面选择好想选的分类时，点击确定按钮将这个分类的唯一id及分类名称传递给父页面。另外，父页面收到分类id时需要将这个id作为请求接口函数的参数触发请求。</li>
+<li>级联分类选择需要保存历史选择记录，例如假设一共有三层，选到第二层时，返回到父页面，此时再跳转到子页面时还要显示之前选择过的状态。</li>
+<li>综上：子页面中，点击头部导航栏的返回按钮向父页面传递保留选择历史的level（树形结构的子集）；当点击确定按钮时，向父页面传递最后选中的分类名称和分类id，以及level（点击确定按钮后也会跳转到父页面，故也要把level传过去）。</li>
+</ul>
+</li>
+<li>解决方案：<br> <strong>父页面中</strong><ul>
+<li>假设父页面为AddMicrolecture.tsx，子页面为courseClassify.tsx，父页面的子组件标签为<code>&lt;CourseClassify/&gt;</code>。</li>
+<li>首先在父页面定义两个函数，其中一个如下，第二个函数直接定义在子组件标签中。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接受两个参数，第一个参数data表示要接受的分类id，</span></span><br><span class="line"><span class="comment">// 第二个参数表示保存的历史选择数据，这两个参数都需要子组件传递过来.</span></span><br><span class="line"><span class="keyword">const</span> callBackFun = <span class="function">(<span class="params">data: <span class="built_in">any</span>, level: <span class="built_in">any</span>[]</span>) =&gt;</span> &#123;</span><br><span class="line">  setShowClassify(<span class="literal">false</span>); <span class="comment">// 子组件调用这个函数时跳转到父页面，设置为false</span></span><br><span class="line">  getData(<span class="string">&#x27;&#x27;</span>, <span class="literal">true</span>, <span class="number">1</span>, data);</span><br><span class="line">  setCategory(level) <span class="comment">// 保存这个level，再传给子组件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>把这个两个函数传递给子组件，由子组件调用执行。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;CourseClassify</span><br><span class="line">  <span class="comment">// 参数data表示分类名称，需要子组件调用这个函数然后将参数传递过来</span></span><br><span class="line">  categoryName=&#123;<span class="function">(<span class="params">data: <span class="built_in">string</span></span>) =&gt;</span> &#123; setCategoryName(data); &#125;&#125;</span><br><span class="line">  callBackFun=&#123;<span class="function">(<span class="params">data?: <span class="built_in">string</span>, level?: <span class="built_in">any</span>[]</span>) =&gt;</span> callBackFun(data, level)&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<strong>子页面中</strong></li>
+<li>子组件中声明函数类型：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IProps &#123;</span><br><span class="line">  <span class="attr">categoryName</span>: <span class="function">(<span class="params">data: <span class="built_in">string</span></span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line">  <span class="attr">callBackFun</span>: <span class="function">(<span class="params">data?: <span class="built_in">string</span>, level?: <span class="built_in">any</span>[]</span>) =&gt;</span> <span class="built_in">void</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>点击确定按钮调用confirm方法，在这个方法中调用父组件中传过来的两个函数。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> confirm = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (isConfirm) &#123;</span><br><span class="line">    <span class="keyword">const</span> categoryId = level[level.length - <span class="number">1</span>].id;</span><br><span class="line">    <span class="keyword">const</span> categoryName = level[level.length - <span class="number">1</span>].name;</span><br><span class="line">    <span class="comment">// 调用父组件传过来的函数，并执行</span></span><br><span class="line">    props.categoryName(categoryName);</span><br><span class="line">    props.callBackFun(categoryId, level);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>点击导航栏返回按钮，只要把level传过去并执行父组件的callBackFun函数。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Navbar title=<span class="string">&quot;请选择课程分类&quot;</span> onLeftClick=&#123;<span class="function">() =&gt;</span> props.callBackFun(<span class="string">&#x27;&#x27;</span>,level)&#125;&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="父组件向子组件传参"><a href="#父组件向子组件传参" class="headerlink" title="父组件向子组件传参"></a>父组件向子组件传参</h3><h4 id="场景一：传递简单数据。"><a href="#场景一：传递简单数据。" class="headerlink" title="场景一：传递简单数据。"></a>场景一：传递简单数据。</h4><ol>
+<li>父页面中：把category传过去<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;CourseClassify</span><br><span class="line">  category=&#123;category&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure></li>
+<li>子页面中接收：<ul>
+<li>首先在子组件中声明数据类型。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IProps &#123;</span><br><span class="line">  <span class="attr">category</span>: <span class="built_in">any</span>[]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>然后通过<code>props.category</code>使用。</li>
+</ul>
+</li>
+</ol>
+<h4 id="场景二：传递函数。"><a href="#场景二：传递函数。" class="headerlink" title="场景二：传递函数。"></a>场景二：传递函数。</h4><ol>
+<li>业务说明：子页面进行添加或删除操作后，父组件要展示一条有修改信息的提醒。</li>
+<li>解决方案：只需要在子组件的确认删除处和确认添加处做好标记，然后把标记传递给父组件。</li>
+<li>父页面index.tsx，子组件标签为<code>&lt;MaterialList/&gt;</code><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [isDeleteIfo, setIsDeleteInfo] = useState(<span class="literal">false</span>) <span class="comment">// 为true时，即表示信息被修改。</span></span><br><span class="line"></span><br><span class="line">&lt;MaterialList</span><br><span class="line">  bookIsChange=&#123;<span class="function">() =&gt;</span> &#123; setIsDeleteInfo(<span class="literal">true</span>) &#125;&#125;</span><br><span class="line">  /&gt;</span><br></pre></td></tr></table></figure></li>
+<li>子组件中：<ul>
+<li>声明：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> IProps &#123;</span><br><span class="line">  <span class="attr">bookIsChange</span>: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>确认删除：<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">delete</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  props.bookIsChange();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/29/typescript/%E5%87%BD%E6%95%B0%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -500,7 +612,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -513,7 +625,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
