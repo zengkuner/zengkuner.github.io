@@ -435,4 +435,26 @@
         <tag>正则表达式</tag>
       </tags>
   </entry>
+  <entry>
+    <title>2024年前端面试回顾</title>
+    <url>/2024/06/25/interview-summary/</url>
+    <content><![CDATA[<h3 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h3><h4 id="手写promise"><a href="#手写promise" class="headerlink" title="手写promise"></a>手写promise</h4><p>😊原生<code>promise</code>的特点：</p>
+<ul>
+<li>需要用new创建实例：<code>let promise = new Promise(() =&gt; &#123;&#125;)</code>。</li>
+<li>当<code>new Promise</code>被创建时，有一个会被自动执行的函数作为参数，这个函数也有两个函数参数<code>resolve()</code>和<code>reject()</code>。</li>
+<li><code>promise</code>有3中状态 <span style="color: red">红颜色</span></li>
+</ul>
+<p><img src="/public/images/微信图片_20240627215735.png" /></p>
+<p><img src="/public/images/algolia_logo.svg" alt="这是图片" title="描述"></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>js</category>
+        <category>面试题</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>面试题</tag>
+      </tags>
+  </entry>
 </search>

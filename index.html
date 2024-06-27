@@ -192,6 +192,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/25/interview-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="zengkuner">
+      <meta itemprop="description" content="咸鱼翻身">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zengkuner">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/25/interview-summary/" class="post-title-link" itemprop="url">2024年前端面试回顾</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-25 21:18:53" itemprop="dateCreated datePublished" datetime="2024-06-25T21:18:53+08:00">2024-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-27 22:02:12" itemprop="dateModified" datetime="2024-06-27T22:02:12+08:00">2024-06-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h3><h4 id="手写promise"><a href="#手写promise" class="headerlink" title="手写promise"></a>手写promise</h4><p>😊原生<code>promise</code>的特点：</p>
+<ul>
+<li>需要用new创建实例：<code>let promise = new Promise(() =&gt; &#123;&#125;)</code>。</li>
+<li>当<code>new Promise</code>被创建时，有一个会被自动执行的函数作为参数，这个函数也有两个函数参数<code>resolve()</code>和<code>reject()</code>。</li>
+<li><code>promise</code>有3中状态 <span style="color: red">红颜色</span></li>
+</ul>
+<p><img src="/public/images/微信图片_20240627215735.png" /></p>
+<p><img src="/public/images/algolia_logo.svg" alt="这是图片" title="描述"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/28/regExp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -980,93 +1066,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/06/vue/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="zengkuner">
-      <meta itemprop="description" content="咸鱼翻身">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zengkuner">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/06/vue/vue%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">vue父子组件通信</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-09-06 14:08:30 / 修改时间：15:40:59" itemprop="dateCreated datePublished" datetime="2021-09-06T14:08:30+08:00">2021-09-06</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="祖先传子通信方式"><a href="#祖先传子通信方式" class="headerlink" title="祖先传子通信方式"></a>祖先传子通信方式</h3><ol>
-<li>父组件 APP.vue<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">todo-header</span> <span class="attr">ref</span>=<span class="string">&quot;header&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//在mounted生命周期里执行异步代码</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//给&lt;TodoHeader/&gt;绑定addTodo事件监听</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//this.$on(&#x27;addTodo&#x27;,this.addTodo) 此时第一个this指向APP实例，所以不对</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.$refs.header.$on(<span class="string">&quot;addTodo&quot;</span>, <span class="built_in">this</span>.addTodo); <span class="comment">//括号内为事件名和回调函数</span></span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>子组件 TodoHeader.vue 接收<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">addItem</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//触发自定义事件：addTodo</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;addTodo&quot;</span>, todo);</span></span><br><span class="line"><span class="javascript">      &#125;,</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="消息订阅与发布-—适用于各种组件间传值，以父子组件传值为例"><a href="#消息订阅与发布-—适用于各种组件间传值，以父子组件传值为例" class="headerlink" title="消息订阅与发布 —适用于各种组件间传值，以父子组件传值为例"></a>消息订阅与发布 —适用于各种组件间传值，以父子组件传值为例</h3><ol>
-<li>下载 pubsub.js 库<ul>
-<li>npm install —save-js 查看信息：npm info pubsub-js</li>
-</ul>
-</li>
-<li>父组件 App.vue 订阅消息—绑定事件监听<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> PubSub <span class="keyword">from</span> <span class="string">&quot;pubsub-js&quot;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">mounted</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//订阅消息 参数为消息名和回调函数</span></span></span><br><span class="line"><span class="javascript">      PubSub.subscribe(<span class="string">&quot;deleteTodo&quot;</span>, <span class="function">(<span class="params">msg, index</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.deleteTodo(index);</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>子组件 TodoItem.vue 发布消息==触发事件<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">	<span class="keyword">import</span> PubSub <span class="keyword">from</span> <span class="string">&#x27;pubsub=js&#x27;</span></span></span><br><span class="line"><span class="javascript">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">		<span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="title">deleteItem</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">const</span> &#123;todo, index, deleteTodo&#125; = <span class="built_in">this</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span>(<span class="built_in">window</span>.confirm(<span class="string">`确认删除<span class="subst">$&#123;todo.title&#125;</span>吗？`</span>)) &#123;</span></span><br><span class="line"><span class="javascript">					<span class="comment">//发布消息 参数为消息名和要传递的数据</span></span></span><br><span class="line"><span class="javascript">					PubSub.publish(<span class="string">&#x27;deleteTodo&#x27;</span>, index);</span></span><br><span class="line"><span class="javascript">				&#125;</span></span><br><span class="line"><span class="javascript">			&#125;</span></span><br><span class="line"><span class="javascript">		&#125;</span></span><br><span class="line"><span class="javascript">	&#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="子传父的通信方式-emit"><a href="#子传父的通信方式-emit" class="headerlink" title="子传父的通信方式 $emit"></a>子传父的通信方式 $emit</h3><ol>
-<li>这里以子组件直接给父组件传递自己 data 里的数据为例。</li>
-<li>父组件 子组件标签名为 son-comp<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--通过事件绑定把这个方法传递给子组件--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">son-comp</span> @<span class="attr">func</span>=<span class="string">&quot;getMsgFromSon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">son-comp</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  	<span class="attr">components</span>: &#123;</span></span><br><span class="line"><span class="javascript">  		SonComp,</span></span><br><span class="line"><span class="javascript">  	&#125;,</span></span><br><span class="line"><span class="javascript">  	<span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">  		<span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">  			<span class="attr">msgFromSon</span>: <span class="string">&#x27;&#x27;</span></span></span><br><span class="line"><span class="javascript">  		&#125;</span></span><br><span class="line"><span class="javascript">  	&#125;</span></span><br><span class="line"><span class="javascript">  	<span class="comment">/**定义一个接受子组件数据的方法，先把这个方法传给子组件，当子组件调用这个方法时，</span></span></span><br><span class="line"><span class="comment"><span class="javascript">  	 * 就可以通过参数data传递他自己想传给父组件的数据</span></span></span><br><span class="line"><span class="comment"><span class="javascript">  	 */</span></span></span><br><span class="line"><span class="javascript">  	<span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">  		<span class="function"><span class="title">getMsgFromSon</span>(<span class="params">data</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">  			<span class="built_in">this</span>.msgFromSon = data;</span></span><br><span class="line"><span class="javascript">  		&#125;</span></span><br><span class="line"><span class="javascript">  	&#125;</span></span><br><span class="line"><span class="javascript">  &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>子组件 SonComp.vue<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;向父组件传递消息&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;sendMsg&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">msg</span>: <span class="string">&quot;要传递给父组件的数据&quot;</span>,</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">sendMsg</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.$emit(<span class="string">&quot;func&quot;</span>, <span class="built_in">this</span>.msg);</span></span><br><span class="line"><span class="javascript">      &#125;,</span></span><br><span class="line"><span class="javascript">    &#125;,</span></span><br><span class="line"><span class="javascript">  &#125;;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1138,20 +1137,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
